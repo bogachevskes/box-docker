@@ -1,20 +1,40 @@
 #!/bin/bash
 
-sudo timedatectl set-timezone Europe/Moscow
+# log in su
+sudo su
 
-sudo yum update -y
+timedatectl set-timezone Europe/Moscow
+
+yum update -y
 
 # common utils
-sudo yum install -y epel-release htop nano \
+yum install -y epel-release htop nano \
     net-tools gcc \
     wget unzip
 
+# docker
+yum install -y yum-utils
+
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+yum install -y docker-ce docker-ce-cli containerd.io
+
+systemctl start docker
+systemctl enable docker
+systemctl status docker
+
+# add vagrant to docker group
+groupadd docker
+usermod -aG docker vagrant
+
 # firewall
-sudo systemctl unmask firewalld
-sudo systemctl enable firewalld
-sudo systemctl start firewalld
-sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
-sudo firewall-cmd --permanent --zone=public --add-port=443/tcp
-sudo firewall-cmd --reload
+systemctl unmask firewalld
+systemctl enable firewalld
+systemctl start firewalld
+firewall-cmd --permanent --zone=public --add-port=80/tcp
+firewall-cmd --permanent --zone=public --add-port=443/tcp
+firewall-cmd --reload
 
 echo "##### Server installed #####"
