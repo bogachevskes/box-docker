@@ -5,6 +5,10 @@ sudo su
 
 timedatectl set-timezone Europe/Moscow
 
+# disble selinux
+setenforce 0
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+
 yum update -y
 
 # common utils
@@ -40,5 +44,9 @@ systemctl start firewalld
 firewall-cmd --permanent --zone=public --add-port=80/tcp
 firewall-cmd --permanent --zone=public --add-port=443/tcp
 firewall-cmd --reload
+
+# nginx
+yum install -y nginx
+systemctl enable nginx
 
 echo "##### Server installed #####"

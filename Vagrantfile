@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
 	config.vm.network :private_network, ip: "192.168.10.172"
 	config.vm.network :public_network
 	config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-	config.vm.hostname = "docker-host"
+	config.vm.hostname = "docker-dev-host"
 
 	config.vm.provider "virtualbox" do |vb|
 		vb.memory = "2024"
