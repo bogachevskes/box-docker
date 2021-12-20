@@ -10,5 +10,6 @@
 Для корректной работы контейнеров внутри виртуальной машины необходимо установить плагин
 
 ```sh
+vagrant plugin install vagrant-vbguest
 vagrant plugin install vagrant-docker-compose
 ```
