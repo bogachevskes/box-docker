@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
 	config.vm.box = "centos/7"
 	config.vm.network :forwarded_port, guest: 83, host: 8300
-	config.vm.network :private_network, ip: "192.168.10.172"
+	config.vm.network :private_network, ip: "192.168.56.172"
 	config.vm.network :public_network
 	config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 	config.vm.hostname = "docker-dev-host"
